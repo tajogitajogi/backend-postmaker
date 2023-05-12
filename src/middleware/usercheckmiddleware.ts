@@ -1,6 +1,7 @@
 import { ApiError } from "../errors/ApiError";
 import { Posts } from "../models/models";
 
+
 interface Ireq{
     body:{
         userId:number
@@ -8,10 +9,11 @@ interface Ireq{
     params:{
         id:number
     }
-
 }
 
+
 module.exports = async function (req:Ireq, res, next) {
+
     const {userId} = req.body
     const {id} = req.params
     const check = await Posts.findOne({where:{id:id}})
