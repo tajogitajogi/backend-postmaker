@@ -1,5 +1,6 @@
 import { ApiError } from '../errors/ApiError';
 
+
 module.exports = function (err:ApiError, req, res, next) {
     if (err) {
         return res.status(err.status).json({message: err.message})
