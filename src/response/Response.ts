@@ -1,4 +1,4 @@
-export class MyResponse extends Error{
+export class MyResponse extends Error {
 
     status: number;
     message:string
@@ -15,5 +15,4 @@ export class MyResponse extends Error{
     static okey(message:string) {
         return new MyResponse(200, message)
     }
-
 }
