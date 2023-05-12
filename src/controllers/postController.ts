@@ -51,11 +51,14 @@ class PostController {
         const post:IPost = await Posts.update({ title: title, description:description, img:namefile }, { where:{ id : id }})
         return next(MyResponse.okey('Updated'))
     }
+    
+
     async delete (req:IDelete,res,next){
         const {id} = req.params
         const post:IPost = await Posts.destroy({ where:{ id : id }})
         return next(MyResponse.okey('Deleted'))
     }
+    
     async getpost (req:IGet,res){
         const {offset}=req.params
         
