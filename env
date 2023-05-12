@@ -1,0 +1,7 @@
+PORT=2000
+DB_NAME=testzadan
+DB_USER=postgres
+DB_PASSWORD=xxXX1234
+DB_HOST=localhost
+DB_PORT=5432
+SECRET_KEY=qwezxc123
