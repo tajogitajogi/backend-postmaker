@@ -16,8 +16,9 @@ const generateJwt = (id:number, login:string) => {
 }
 
 
-
 class UserController {
+    
+
     async registration(req:IRegistration, res, next) {
         const {login, password} = req.body
         if (!login || !password) {
@@ -33,6 +34,7 @@ class UserController {
         return res.status(200).json({token})
     }
 
+
     async login(req:IRegistration, res, next) {
         const {login, password} = req.body
         const user:IUser= await User.findOne({where: {login}})
@@ -46,6 +48,7 @@ class UserController {
         const token = generateJwt(user.id, user.login)
         return res.status(200).json({token})
     }
+
 
     async check(req:ICheck, res, next) {
         const token = generateJwt(req.user.id, req.user.login)
