@@ -1,8 +1,8 @@
 import ICreate from "../controllers/Interfaces/ICreate";
 import Idecode from "../controllers/Interfaces/IDecode";
 
-const jwt = require('jsonwebtoken')
 
+const jwt = require('jsonwebtoken')
 
 
 module.exports = function (req:ICreate, res, next) {
