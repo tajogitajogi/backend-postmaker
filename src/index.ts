@@ -18,7 +18,6 @@ const app: Express = express();
 const PORT: string = process.env.PORT || '2000';
 
 
-
 app.use(express.static(path.resolve(__dirname, 'static')))
 app.use(fileUpload({}))
 app.use(cors())
