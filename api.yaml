@@ -1,0 +1,219 @@
+swagger: "2.0"
+info:
+  title: PostMacker
+  description: This is documentation for my app
+  version: 1.0
+  contact:
+    email: bmyhik@mail.ru
+  servers:
+    -url: http://localhost:2000
+schemes: [http]
+
+
+
+paths:
+  /api/user/registration:
+    post:
+      tags:
+          - Auth
+      summary: Registration
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: "#/components/schemas/Registration"
+      responses:
+        200:
+          schema:
+            type: object
+            example: {token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibG9naW4iOiJwb3BhMTIzIiwiaWF0IjoxNjgzODk5MTExLCJleHAiOjE2ODM5ODU1MTF9.1aiTC8aIdU1XYssI62ZVUbE7DjLtTxbUMzB9-vY6PE0 }
+  
+  
+  /api/user/login:
+    post:
+      tags:
+          - Auth
+      summary: Login
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: "#/components/schemas/Registration"
+      responses:
+        200:
+          schema:
+            type: object
+            example: {token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibG9naW4iOiJwb3BhMTIzIiwiaWF0IjoxNjgzODk5MTExLCJleHAiOjE2ODM5ODU1MTF9.1aiTC8aIdU1XYssI62ZVUbE7DjLtTxbUMzB9-vY6PE0 }
+
+
+  /api/user/auth:
+    get:
+      tags:
+          - Auth
+      summary: regenerate JWT
+      responses: 
+        200:
+          description: OK
+          schema:
+            type: object
+            example: {token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibG9naW4iOiJwb3BhMTIzIiwiaWF0IjoxNjgzODk5MTExLCJleHAiOjE2ODM5ODU1MTF9.1aiTC8aIdU1XYssI62ZVUbE7DjLtTxbUMzB9-vY6PE0 }
+
+
+  /api/blog/post:
+    post:
+      tags:
+        - Blog
+      summary: Create post
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: "#/components/schemas/Create"
+        - in: formData
+          name: file
+          type: file
+          required: false
+          description: The img to upload.
+      responses:
+        201:
+          schema:
+            type: object
+            example: { "message": "ID post"}
+        401:
+          schema:
+            type: object
+            example: { "message": "Не авторизован"}
+        500:
+          schema:
+            type: object
+            example: {"message": "Непредвиденная ошибка!"}
+
+  /api/blog/update/:id:
+    patch:
+      tags:
+        - Blog
+      summary: Update post
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: query
+          name: query
+          type: integer
+        - in: body
+          name: body
+          schema:
+            $ref: "#/components/schemas/Create"
+        - in: formData
+          name: file
+          type: file
+          required: false
+          description: The img to upload.
+      responses:
+        200:
+          schema:
+            type: object
+            example: { "message": "Updated"}
+        403:
+          schema:
+            type: object
+            example: {"message": "Не твой пост"}
+        401:
+          schema:
+            type: object
+            example: { "message": "Не авторизован"}
+        500:
+          schema:
+            type: object
+            example: {"message": "Непредвиденная ошибка!"}
+  /api/blog/delete/:id:
+    delete:
+      tags:
+        - Blog
+      summary: Delete post
+      parameters:
+        - in: query
+          name: query
+          type: integer
+      responses:
+        200:
+          schema:
+            type: object
+            example: { "message": "Deleted"}
+        403:
+          schema:
+            type: object
+            example: {"message": "Не твой пост"}
+        401:
+          schema:
+            type: object
+            example: { "message": "Не авторизован"}
+        500:
+          schema:
+            type: object
+            example: {"message": "Непредвиденная ошибка!"}
+  /api/blog/get/:offset:
+    get:
+      tags:
+        - Blog
+      summary: Get posts
+      parameters:
+        - in: query
+          name: query
+          type: integer
+      responses:
+        200:
+          schema:
+            type: object
+            example: { "posts": [{
+            "id": 1,
+            "title": "testing",
+            "description": "123zxc",
+            "img": null,
+            "author": "tajogi",
+            "createdAt": "2023-05-11T16:00:04.248Z",
+            "updatedAt": "2023-05-11T16:00:04.248Z",
+            "userId": 1}]}
+        401:
+          schema:
+            type: object
+            example: { "message": "Не авторизован"}
+        500:
+          schema:
+            type: object
+            example: {"message": "Непредвиденная ошибка!"}
+
+components:
+  schemas:
+    Registration:
+      type: object
+      required:
+          - login
+          - password
+      properties:
+        login:
+          type: string
+        password:
+          type: string
+    Create:
+      type: object
+      required:
+          - title
+          - description
+          - img
+      properties:
+        title:
+          type: string
+        description:
+          type?: string 
+
+        
